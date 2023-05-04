@@ -2,7 +2,7 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
-const schema = z.object({
+export const stationInput = z.object({
   name: z.string().max(255),
   address: z.string().max(255),
   city: z.string().max(255),
@@ -13,24 +13,24 @@ const schema = z.object({
 }) satisfies z.Schema<Prisma.StationUncheckedCreateInput>;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-export const ProductValidation = Prisma.defineExtension({
+export const StationValidation = Prisma.defineExtension({
   query: {
     station: {
       create({ args, query }) {
-        args.data = schema.parse(args.data);
+        args.data = stationInput.parse(args.data);
         return query(args);
       },
       update({ args, query }) {
-        args.data = schema.partial().parse(args.data);
+        args.data = stationInput.partial().parse(args.data);
         return query(args);
       },
       updateMany({ args, query }) {
-        args.data = schema.partial().parse(args.data);
+        args.data = stationInput.partial().parse(args.data);
         return query(args);
       },
       upsert({ args, query }) {
-        args.create = schema.parse(args.create);
-        args.update = schema.partial().parse(args.update);
+        args.create = stationInput.parse(args.create);
+        args.update = stationInput.partial().parse(args.update);
         return query(args);
       },
     },
