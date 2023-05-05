@@ -8,8 +8,10 @@ export const stationInput = z.object({
   city: z.string().max(255),
   operator: z.ostring(),
   capasity: z.number(),
-  x_cord: z.instanceof(Prisma.Decimal).refine((price) => price.gte("0.01") && price.lt("1000000.00")),
-  y_cord: z.instanceof(Prisma.Decimal).refine((price) => price.gte("0.01") && price.lt("1000000.00"))
+  x_cord: z.string(),
+  y_cord: z.string(),
+  /* x_cord: z.instanceof(Prisma.Decimal),
+  y_cord: z.instanceof(Prisma.Decimal) */
 }) satisfies z.Schema<Prisma.StationUncheckedCreateInput>;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
