@@ -26,8 +26,8 @@ model Station {
 
 model BikeRental {
   id                 Int      @id @default(autoincrement())
-  departure          DateTime
-  return             DateTime
+  departureTime      DateTime
+  returnTime         DateTime
   departureStation   Station  @relation("Departures", fields: [departureStationId], references: [id])
   departureStationId Int
   returnStation      Station  @relation("Returns", fields: [returnStationId], references: [id])
