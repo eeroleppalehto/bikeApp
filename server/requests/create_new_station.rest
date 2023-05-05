@@ -1,0 +1,12 @@
+POST http://localhost:3001/api/stations
+Content-Type: application/json
+
+{
+  "name": "Mällikkälä",
+  "address": "Juurtalatie",
+  "city": "Turku",
+  "operator": "HSL",
+  "capasity": 40,
+  "x_cord": "40.55555",
+  "y_cord": "40.55555"
+}
