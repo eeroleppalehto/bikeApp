@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import { bikeRentalInput } from "../models/bikeRental";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { BikeRentalList, bikeRentalInput } from "../models/bikeRental";
 
 const prisma = new PrismaClient();
 
@@ -25,4 +25,28 @@ const addNew = async (object: unknown) => {
   return newBikeRental;
 };
 
-export default { getAll, addNew };
+const addMany = async (object: unknown | unknown[]) => {
+  const data = BikeRentalList.parse(object);
+
+  const bikeRentalList: Prisma.BikeRentalUncheckedCreateInput[] = data.map(item => {
+    const bikeRental = {
+      departureTime: item.departureTime,
+      returnTime: item.returnTime,
+      departureStationId: item.departureStationId,
+      returnStationId: item.returnStationId,
+      coveredDistance: item.coveredDistance,
+      duration: item.duration,
+    };
+
+    return bikeRental;
+  });
+
+  const count = await prisma.bikeRental.createMany({
+    data:bikeRentalList,
+    skipDuplicates: true,
+  });
+
+  return count;
+};
+
+export default { getAll, addNew, addMany };
