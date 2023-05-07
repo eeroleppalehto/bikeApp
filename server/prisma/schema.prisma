@@ -13,9 +13,14 @@ datasource db {
 
 model Station {
   id         Int          @id @default(autoincrement())
+  stationNum String       @unique @db.VarChar(4)
   name       String       @unique @db.VarChar(255)
+  nameFi     String       @db.VarChar(255)
+  nameSwe    String       @db.VarChar(255)
   address    String       @db.VarChar(255)
-  city       String       @db.VarChar(255)
+  addressSwe String       @db.VarChar(255)
+  city       String?      @db.VarChar(255)
+  citySwe    String?      @db.VarChar(255)
   operator   String?      @db.VarChar(255)
   capasity   Int
   x_cord     Decimal
