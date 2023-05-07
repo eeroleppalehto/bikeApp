@@ -35,3 +35,5 @@ export const BikeRentalValidation = Prisma.defineExtension({
     },
   },
 });
+
+export const BikeRentalList = z.array(bikeRentalInput);
