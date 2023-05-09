@@ -71,9 +71,9 @@ const addMany = async (object: unknown | unknown[]) => {
       console.log(`Batch ${i+1} done!`);
     }
   } else {
-  const count = await prisma.bikeRental.createMany({
-    data:bikeRentalList,
-    skipDuplicates: true,
+    const count = await prisma.bikeRental.createMany({
+      data:bikeRentalList,
+      skipDuplicates: true,
     });
     totalCount.count += count.count;
   }
@@ -84,7 +84,14 @@ const addMany = async (object: unknown | unknown[]) => {
 
   return totalCount;
 };
-  return count;
+
+const getPage = async (itemNumber: number, skipNumber: number) => {
+  const bikeRentals = await prisma.bikeRental.findMany({
+    skip: skipNumber,
+    take: itemNumber,
+  });
+
+  return bikeRentals;
 };
 
-export default { getAll, addNew, addMany };
+export default { getAll, getPage, addNew, addMany };
