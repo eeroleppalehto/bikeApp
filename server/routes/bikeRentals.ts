@@ -1,7 +1,6 @@
 import express from 'express';
 import bikeRentalService from '../services/bikeRentalService';
 import { ZodError } from 'zod';
-// import { ZodError } from 'zod';
 
 const bikeRentalRouter = express.Router();
 
@@ -11,6 +10,17 @@ bikeRentalRouter.get('/', async (_req, res) => {
   res.json(bikeRentals);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+bikeRentalRouter.get('/page', async (req, res) => {
+  console.log('huhuu');
+  try {
+    const { items, skip } = req.query;
+    const rentals = await bikeRentalService.getPage(Number(items),Number(skip));
+    res.json(rentals);
+  } catch {
+    res.status(400).send('auts');
+  }
+});
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 bikeRentalRouter.post('/', async (req, res) => {
