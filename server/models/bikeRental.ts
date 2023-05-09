@@ -2,13 +2,22 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
+const validateNumber = (value: string) => {
+  try {
+    Number(value);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const bikeRentalInput = z.object({
-  departureTime: z.string().datetime(),
-  returnTime: z.string().datetime(),
-  departureStationId: z.number().int().positive(),
-  returnStationId: z.number().int().positive(),
-  coveredDistance: z.number().int().positive(),
-  duration: z.number().int().positive()
+  departureTime: z.string().datetime({ offset: true}),
+  returnTime: z.string().datetime({ offset: true}),
+  departureStationId: z.string().refine(validateNumber),
+  returnStationId: z.string().refine(validateNumber),
+  coveredDistance: z.number().positive(),
+  duration: z.number().positive()
 }) satisfies z.Schema<Prisma.BikeRentalUncheckedCreateInput>;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
