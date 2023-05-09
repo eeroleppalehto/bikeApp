@@ -12,31 +12,31 @@ datasource db {
 }
 
 model Station {
-  id         Int          @id @default(autoincrement())
-  stationNum String       @unique @db.VarChar(4)
-  name       String       @unique @db.VarChar(255)
-  nameFi     String       @db.VarChar(255)
-  nameSwe    String       @db.VarChar(255)
-  address    String       @db.VarChar(255)
-  addressSwe String       @db.VarChar(255)
-  city       String?      @db.VarChar(255)
-  citySwe    String?      @db.VarChar(255)
-  operator   String?      @db.VarChar(255)
+  id         Int     @id @default(autoincrement())
+  stationNum String  @unique @db.VarChar(4)
+  name       String  @unique @db.VarChar(255)
+  nameFi     String  @db.VarChar(255)
+  nameSwe    String  @db.VarChar(255)
+  address    String  @db.VarChar(255)
+  addressSwe String  @db.VarChar(255)
+  city       String? @db.VarChar(255)
+  citySwe    String? @db.VarChar(255)
+  operator   String? @db.VarChar(255)
   capasity   Int
   x_cord     Decimal
   y_cord     Decimal
-  Departures BikeRental[] @relation("Departures")
-  Returns    BikeRental[] @relation("Returns")
+  // Departures BikeRental[] @relation("Departures")
+  // Returns    BikeRental[] @relation("Returns")
 }
 
 model BikeRental {
   id                 Int      @id @default(autoincrement())
   departureTime      DateTime
   returnTime         DateTime
-  departureStation   Station  @relation("Departures", fields: [departureStationId], references: [id])
-  departureStationId Int
-  returnStation      Station  @relation("Returns", fields: [returnStationId], references: [id])
-  returnStationId    Int
-  coveredDistance    Int
-  duration           Int
+  // departureStation   Station  @relation("Departures", fields: [departureStationId], references: [stationNum])
+  departureStationId String
+  // returnStation      Station  @relation("Returns", fields: [returnStationId], references: [stationNum])
+  returnStationId    String
+  coveredDistance    Float
+  duration           Float
 }
