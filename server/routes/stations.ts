@@ -7,7 +7,6 @@ const stationRouter = express.Router();
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 stationRouter.get('/', async (_req, res) => {
   const stations = await stationService.getAll();
-  console.log(stations);
   res.json(stations);
 });
 
@@ -20,7 +19,6 @@ stationRouter.post('/', async (req, res) => {
     let errorMessage = 'Something went wrong';
 
     if ( error instanceof ZodError) {
-      //console.log("error");
       errorMessage = error.message;
     }
     
